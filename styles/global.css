@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.hola {
+    font-family: 'Comfortaa', cursive;
+    font-size: 3rem;
+    color: #6610f2;
+}
+
+.login-button,
+.logout-button,
+.add-customer-button {
+    background-color: #6610f2;
+    border-color: #6610f2;
+    width: 100%;
+    color: #fff;
+}
+
+.login-button:hover,
+.logout-button:hover,
+.add-customer-button:hover {
+    background-color: #520dc2;
+    border-color: #520dc2;
+    color: #fff;
+}
+
+.text-grey {
+    color: #898989;
+}
+
+.sidebar {
+    background-color: #f8f9fa;
+    padding: 20px;
+    height: 100vh;
+    /* make the sidebar take up the full height of the viewport */
+    overflow: auto;
+    /* add a scrollbar if the content is too long */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* this will push the logout button to the bottom */
+}
+
+.content {
+    padding: 20px;
+}
+
+/* Add styles for the list group */
+.list-group-item {
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #f8f9fa;
+    /* Change this to the color you want */
+}
+
+.customer-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+}
+
+.form-label {
+    margin-bottom: 10px;
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-checkbox {
+    margin: 5px 0;
+}
