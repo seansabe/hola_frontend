@@ -1,6 +1,7 @@
 import { useState, useEffect, FormEvent } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { API_URL } from '@/constants/api';
 
 export default function Login() {
     const [email, setEmail] = useState<string>('');
@@ -22,7 +23,7 @@ export default function Login() {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5001/api/users/login', { email, password });
+            const response = await axios.post(`${API_URL}/users/login`, { email, password });
             if (remember) {
                 localStorage.setItem('user', JSON.stringify(response.data));
             }
@@ -49,7 +50,7 @@ export default function Login() {
                         <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="form-check-input" />
                         <label className="form-check-label">Remember me</label>
                     </div>
-                    <button type="submit" className="btn login-button mt-4">Login</button>
+                    <button type="submit" className="btn hola-btn mt-4">Login</button>
                 </form>
                 <p className="text-grey text-center mt-4 mb-4">Ver 1.0</p>
                 {error && <div className="alert alert-danger">{error}</div>}

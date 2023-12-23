@@ -39,7 +39,7 @@ export default function Home() {
                             <a onClick={() => handleClick('settings')} className={`list-group-item ${selectedMenu === 'settings' ? 'selected' : ''}`}>Settings</a>
                         </div>
                     </div>
-                    <button onClick={logout} className="btn logout-button mt-3">Logout</button>
+                    <button onClick={logout} className="btn hola-btn mt-3">Logout</button>
                 </div>
                 <div className="col-md-10 content">
                     {activeComponent === 'auth' && <Auth />}
