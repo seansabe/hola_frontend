@@ -19,7 +19,13 @@
     color: #fff;
 }
 
-.hola-btn:hover {
+.hola-inline-btn {
+    background-color: #6610f2;
+    border-color: #6610f2;
+    color: #fff;
+}
+
+.hola-btn:hover, .hola-inline-btn:hover {
     background-color: #520dc2;
     border-color: #520dc2;
     color: #fff;
@@ -86,7 +92,7 @@
     padding: 20px 0;
 }
 
-.customers-container .row .col:first-child {
+.customers-container .row .col-4:first-child {
     border-right: 1px solid #ccc;
 }
 

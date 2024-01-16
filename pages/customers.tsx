@@ -1,11 +1,13 @@
 import { SetStateAction, useState } from 'react';
 import { API_URL } from '@/constants/api';
+import React, { useRef } from 'react';
 
 export default function Customers() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [customerType, setCustomerType] = useState('');
     const [customerId, setCustomerId] = useState('');
+    const [barcode, setBarcode] = useState('');
     const [hasSignedPolicy, setHasSignedPolicy] = useState(false);
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
@@ -14,12 +16,14 @@ export default function Customers() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
+    const formRef = useRef(null);
 
     const resetForm = () => {
         setFirstName('');
         setLastName('');
         setCustomerType('');
         setCustomerId('');
+        setBarcode('');
         setHasSignedPolicy(false);
     };
 
@@ -35,6 +39,7 @@ export default function Customers() {
                 lastName,
                 customerType,
                 customerId,
+                barcode,
                 hasSignedPolicy,
             }),
         });
@@ -71,6 +76,7 @@ export default function Customers() {
     };
 
     const handleEdit = (customer: SetStateAction<null>) => {
+        formRef.current.reset();
         setSelectedCustomer(customer);
     };
 
@@ -81,6 +87,7 @@ export default function Customers() {
             lastName: selectedCustomer.lastName,
             customerType: selectedCustomer.customerType,
             customerId: selectedCustomer.customerId,
+            barcode: selectedCustomer.barcode,
             hasSignedPolicy: selectedCustomer.hasSignedPolicy,
         };
 
@@ -116,9 +123,9 @@ export default function Customers() {
         <div className="customers-container container">
             <h1>Customers</h1>
             <div className="row">
-                <div className="col">
+                <div className="col-4">
                     <h2 className='text-center'>{selectedCustomer ? 'Update' : 'Create'}</h2>
-                    <form onSubmit={handleSave} className="customer-form">
+                    <form onSubmit={handleSave} className="customer-form" ref={formRef}>
                         <label className="form-label">
                             First Name:
                             <input type="text" value={selectedCustomer ? selectedCustomer.firstName : firstName} onChange={(e) => selectedCustomer ? setSelectedCustomer({ ...selectedCustomer, firstName: e.target.value }) : setFirstName(e.target.value)} required className="form-input" />
@@ -130,6 +137,14 @@ export default function Customers() {
                         <label className="form-label">
                             Customer ID:
                             <input type="text" value={selectedCustomer ? selectedCustomer.customerId : customerId} onChange={(e) => selectedCustomer ? setSelectedCustomer({ ...selectedCustomer, customerId: e.target.value }) : setCustomerId(e.target.value)} required className="form-input" />
+                        </label>
+                        <label className="form-label">
+                            Barcode:
+                            <input type="text" onKeyDown={(event) => {
+                                if (event.key === 'Enter') {
+                                    event.preventDefault();
+                                }
+                            }} value={selectedCustomer ? selectedCustomer.barcode : barcode} onChange={(e) => selectedCustomer ? setSelectedCustomer({ ...selectedCustomer, barcode: e.target.value }) : setBarcode(e.target.value)} className="form-input" />
                         </label>
                         <label className="form-label">
                             Customer Type:
@@ -153,7 +168,7 @@ export default function Customers() {
                         )}
                     </form>
                 </div>
-                <div className="col">
+                <div className="col-8">
                     <h2 className="text-center">Search</h2>
                     <form onSubmit={handleSearch} className="search-form mt-4">
                         <label className="form-label">
@@ -170,7 +185,8 @@ export default function Customers() {
                                     <tr className="text-center">
                                         <th>Name</th>
                                         <th>Last Name</th>
-                                        <th>Customer ID</th>
+                                        <th>ID</th>
+                                        <th>Barcode</th>
                                         <th>Type</th>
                                         <th>Waiver Signed</th>
                                         <th></th>
@@ -182,6 +198,7 @@ export default function Customers() {
                                             <td>{customer.firstName}</td>
                                             <td>{customer.lastName}</td>
                                             <td>{customer.customerId}</td>
+                                            <td>{customer.barcode}</td>
                                             <td className='customer-type'>{customer.customerType}</td>
                                             <td>{customer.hasSignedPolicy ? 'Yes' : 'No'}</td>
                                             <td>
